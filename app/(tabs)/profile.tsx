@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Platform, Switch } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform, Switch, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/IconSymbol";
 import { GlassView } from "expo-glass-effect";
@@ -26,6 +26,11 @@ export default function ProfileScreen() {
           styles.profileHeader,
           Platform.OS !== 'ios' && { backgroundColor: 'rgba(100, 181, 246, 0.1)' }
         ]} glassEffectStyle="regular">
+          <Image 
+            source={require('@/assets/images/d462de4a-88e2-488f-a490-e90dd29d975a.jpeg')}
+            style={styles.emblem}
+            resizeMode="contain"
+          />
           <IconSymbol name="person.circle.fill" size={80} color={colors.accent} />
           <Text style={[styles.name, { color: colors.text }]}>Staff Member</Text>
           <Text style={[styles.email, { color: colors.grey }]}>staff@tasbetpark.edu.za</Text>
@@ -146,6 +151,11 @@ const styles = StyleSheet.create({
     padding: 32,
     marginBottom: 16,
     gap: 8,
+  },
+  emblem: {
+    width: 100,
+    height: 100,
+    marginBottom: 16,
   },
   name: {
     fontSize: 24,

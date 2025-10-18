@@ -1,6 +1,6 @@
 
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/IconSymbol";
 import { GlassView } from "expo-glass-effect";
@@ -44,6 +44,11 @@ export default function EvacuationPlanScreen() {
       edges={['top']}
     >
       <View style={styles.header}>
+        <Image 
+          source={require('@/assets/images/d462de4a-88e2-488f-a490-e90dd29d975a.jpeg')}
+          style={styles.emblem}
+          resizeMode="contain"
+        />
         <IconSymbol 
           name="map.fill" 
           size={32} 
@@ -236,6 +241,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(100, 181, 246, 0.2)',
+  },
+  emblem: {
+    width: 80,
+    height: 80,
+    marginBottom: 12,
   },
   headerTitle: {
     fontSize: 24,
