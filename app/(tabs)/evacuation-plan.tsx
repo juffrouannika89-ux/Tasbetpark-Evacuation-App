@@ -10,6 +10,30 @@ import { colors } from "@/styles/commonStyles";
 export default function EvacuationPlanScreen() {
   const theme = useTheme();
 
+  const emergencySignals = [
+    {
+      code: 'CODE RED',
+      beeps: '3 beeps',
+      action: 'DO NOT EVACUATE',
+      color: '#FF3B30',
+      icon: 'xmark.circle.fill'
+    },
+    {
+      code: 'CODE GREY 5',
+      beeps: '2 beeps',
+      action: 'EVACUATE',
+      color: '#FF9500',
+      icon: 'arrow.right.circle.fill'
+    },
+    {
+      code: 'CODE NAVY',
+      beeps: '1 long beep',
+      action: 'EVACUATE',
+      color: '#007AFF',
+      icon: 'arrow.right.circle.fill'
+    }
+  ];
+
   const assemblyPoints = [
     {
       name: 'Assembly Point A',
@@ -65,6 +89,48 @@ export default function EvacuationPlanScreen() {
           Platform.OS !== 'ios' && styles.contentContainerWithTabBar
         ]}
       >
+        <GlassView
+          style={[
+            styles.card,
+            styles.emergencySignalsCard,
+            Platform.OS !== 'ios' && { backgroundColor: 'rgba(255, 149, 0, 0.1)' }
+          ]}
+          glassEffectStyle="regular"
+        >
+          <View style={styles.cardHeader}>
+            <IconSymbol name="bell.fill" size={24} color="#FF9500" />
+            <Text style={styles.cardTitle}>Emergency Signals</Text>
+          </View>
+          
+          <View style={styles.signalAuthority}>
+            <IconSymbol name="megaphone.fill" size={20} color={colors.accent} />
+            <Text style={styles.signalAuthorityText}>
+              The Principal or his/her Deputy will give the order by intercom/loudhailer or using an airhorn:
+            </Text>
+          </View>
+
+          <View style={styles.signalsList}>
+            {emergencySignals.map((signal, index) => (
+              <View key={index} style={[styles.signalItem, { borderLeftColor: signal.color }]}>
+                <View style={styles.signalHeader}>
+                  <IconSymbol name={signal.icon as any} size={24} color={signal.color} />
+                  <View style={styles.signalCodeContainer}>
+                    <Text style={[styles.signalCode, { color: signal.color }]}>
+                      {signal.code}
+                    </Text>
+                    <Text style={styles.signalBeeps}>{signal.beeps}</Text>
+                  </View>
+                </View>
+                <View style={styles.signalActionContainer}>
+                  <Text style={[styles.signalAction, { color: signal.color }]}>
+                    {signal.action}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </GlassView>
+
         <GlassView
           style={[
             styles.card,
@@ -272,6 +338,10 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 16,
   },
+  emergencySignalsCard: {
+    borderWidth: 2,
+    borderColor: 'rgba(255, 149, 0, 0.3)',
+  },
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -282,6 +352,59 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: colors.text,
+  },
+  signalAuthority: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 12,
+    marginBottom: 20,
+    padding: 12,
+    backgroundColor: 'rgba(100, 181, 246, 0.1)',
+    borderRadius: 8,
+  },
+  signalAuthorityText: {
+    flex: 1,
+    fontSize: 14,
+    color: colors.text,
+    lineHeight: 20,
+    fontWeight: '500',
+  },
+  signalsList: {
+    gap: 16,
+  },
+  signalItem: {
+    borderLeftWidth: 4,
+    paddingLeft: 16,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: 8,
+  },
+  signalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 8,
+  },
+  signalCodeContainer: {
+    flex: 1,
+  },
+  signalCode: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 2,
+  },
+  signalBeeps: {
+    fontSize: 14,
+    color: colors.grey,
+    fontStyle: 'italic',
+  },
+  signalActionContainer: {
+    paddingLeft: 36,
+  },
+  signalAction: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
   procedureList: {
     gap: 12,
